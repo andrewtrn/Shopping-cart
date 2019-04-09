@@ -53,7 +53,7 @@ class shoppingcart:
         def change_dropdown3(*args):
             print( tkvar3.get() )
         
-        tkvar3.trace('w', change_dropdown3)
+        
         checkout = Button(window, text = "Check Out").grid(row = 6, column = 2, sticky = E)
         
         #create menu and Help section
