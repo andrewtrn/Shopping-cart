@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import webbrowser
 from tkinter import messagebox
 from PIL import ImageTk, Image # has to install PILLOW using command pallate, this comment allows to display image.
 root = Tk()
@@ -16,10 +17,48 @@ c.pack()
 
 def donothing():
         x = 0
+def callit():
+    messagebox.showinfo('Contact IT', 'You are contacting out IT support at (817) 180 - 0886')
 
+#re-direct FAQ? button to website.
+def redirect():
+    webbrowser.open_new(r"https://andrewtrn.wixsite.com/chromecruises/news-feed")
+class profile:
+    def __init__(self):
+        info = Toplevel(root, bg ="dark sea green")
+        info.title("Profile")
+        #Entry for address
+        Label(info, text = 'First Name', bg = "dark sea green").grid(
+            row = 1, column = 0, stick = W) 
+        self.firstnameVar = StringVar()
+        Entry(info, textvariable = self.firstnameVar, justify = RIGHT,).grid(
+            row = 1, column = 2, sticky = E)
+        Label(info, text = 'Last Name', bg = "dark sea green").grid(
+            row = 2, column = 0, stick = W)
+        self.lastnameVar = StringVar()
+        Entry(info, textvariable = self.lastnameVar, justify = RIGHT,).grid(
+            row = 2, column = 2, sticky = E)
+        Label(info, text = 'E-mail', bg = "dark sea green").grid(
+            row = 3, column = 0, stick = W)
+        self.emailVar = StringVar()
+        Entry(info, textvariable = self.emailVar, justify = RIGHT,).grid(
+            row = 3, column = 2, sticky = E)
+        Label(info, text = 'Phone Number', bg = "dark sea green").grid(
+            row = 4, column = 0, stick = W)
+        self.phoneVar = StringVar()
+        Entry(info, textvariable = self.phoneVar, justify = RIGHT,).grid(
+            row = 4, column = 2, sticky = E)
+        Button(info, text = "save", command = save, fg = "light salmon" ).grid(row=5, column = 2, sticky = E)
+        
+        info.mainloop()
+class save:
+    def __init__(self):
+        messagebox.showinfo('Profile', 'Your information has been saved. You may close the window.')
+
+#create Menu bar
 menubar = Menu(root)
 filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label="Profile", command=donothing)
+filemenu.add_command(label="Profile", command=profile)
 filemenu.add_command(label="Order", command=donothing)
 filemenu.add_command(label="Setting", command=donothing)
 filemenu.add_separator()
@@ -27,8 +66,8 @@ filemenu.add_command(label="Log out", command=root.quit)
 menubar.add_cascade(label="Your Account", menu=filemenu)
  
 helpmenu = Menu(menubar, tearoff=0)
-helpmenu.add_command(label="Contact our IT support", command=donothing)
-helpmenu.add_command(label="FAQ", command=donothing)
+helpmenu.add_command(label="Contact our IT support", command=callit)
+helpmenu.add_command(label="FAQ", command=redirect)
 menubar.add_cascade(label="Help", menu=helpmenu)
  
 root.config(menu=menubar)
@@ -180,8 +219,8 @@ class shoppingcart:
 class shipping:
         
     def __init__(self): 
-        messagebox.showinfo("Check Out","You will now go to Shipping.")
-        layer = Toplevel(root, bg ="dark sea green")
+        messagebox.showinfo("Check Out","You will now go to Shipping.") #create pop-up message
+        layer = Toplevel(root, bg ="dark sea green") #create additional window
         layer.title("Shipping")
         Button(layer, text = "Place Order", command = placeorder, fg = "light salmon" ).grid(row=7, column = 2, sticky = E)
         Label(layer, text = 'Where should we send your order?', bg = "dark sea green").grid(
@@ -258,7 +297,7 @@ class shoppingcart2:
 
 
         #create compute total price button
-        Label(frame2, text = "Coste total ($)",bg = "powder blue").grid(row = 7, column = 1, sticky = W)
+        Label(frame2, text = "Coste total (Mex$)",bg = "powder blue").grid(row = 7, column = 1, sticky = W)
         self.totalcostVar1 = StringVar()
         Label(frame2, textvariable = self.totalcostVar1,bg = "powder blue").grid(row = 7, column = 2, sticky = E)
         Button(frame2, text = "Agregar al carrito", fg = "light salmon", command = self.computeprice2).grid(row= 8, column = 1, sticky = W)
@@ -297,7 +336,7 @@ class shoppingcart2:
         Label(frame2, textvariable = self.taxVar1, bg = "powder blue").grid (row = 6, column = 2, sticky = E)
 
         #create subtotal field 
-        Label(frame2, text = "Total parcial", bg = "powder blue").grid(row = 5, column = 1, sticky = W)
+        Label(frame2, text = "Total parcial (Mex$)", bg = "powder blue").grid(row = 5, column = 1, sticky = W)
         self.subtotalVAR1 = StringVar(window2)
         Label(frame2, textvariable = self.subtotalVAR1, bg = "powder blue").grid (row = 5, column = 2, sticky = E)
         #summary
@@ -323,7 +362,7 @@ class shoppingcart2:
         subtotal_price1 = self.getSubtotal1(self.tkvar1.get(), int(self.quantityVar1.get()))
         self.subtotalVAR1.set(subtotal_price1) # assign value of subtotal to calculated subtotal field. 
         
-        item1 = 'Resumen del producto: ' + self.tkvar1.get() +','+' '+'Cantidad: ' + self.quantityVar1.get() + ','+' '+ 'Color: '+ self.tkvar2.get()+','+' '+'Coste Total: '+ '$'+ self.totalcostVar1.get()
+        item1 = 'Resumen del producto: ' + self.tkvar1.get() +','+' '+'Cantidad: ' + self.quantityVar1.get() + ','+' '+ 'Color: '+ self.tkvar2.get()+','+' '+'Coste Total: '+ 'Mex$'+ self.totalcostVar1.get()
         self.summaryVar1.set(item1)
 
     def getTotalprice1(self, tkvar1, quantityVar1):
@@ -431,9 +470,9 @@ class placeorder1:
         final1 = Toplevel(root, bg = "dark sea green")
         final1.title("Orden del lugar")
         Label(final1, text = 'Gracias por tu orden.',bg = "dark sea green" ).grid(row = 1, column = 0, sticky = W)
-        Label(final1, text = "Te notificaremos cuando hemos enviado tu orden.", bg="dark sea green").grid(row = 2, column = 0, sticky = W)
+        Label(final1, text = "Te notificaremos cuando hemos enviado tu orden!", bg="dark sea green").grid(row = 2, column = 0, sticky = W)
         Button(final1, text = 'Cerrar', command = root.destroy, bg = "dark sea green", fg = "light salmon").grid(row=3)
-        logo21 = Canvas(final1,width = 300, height = 10)
+        logo21 = Canvas(final1,width = 400, height = 10)
         imgpng21 = ImageTk.PhotoImage(Image.open("GW logo.png"))
         imgpnglabel21 = Label(final1, image=imgpng21, bg="dark sea green").grid(row = 0, column=0, sticky = W)
         
